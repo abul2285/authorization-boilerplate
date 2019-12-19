@@ -1,0 +1,5 @@
+GET http://localhost:4000 HTTP/1.1
+
+###
+POST  http://localhost:4000/refresh_token HTTP/1.1
+Cookie: jid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGY3YjZmMDdiNDEwMzA0ZWM5OTdiMTYiLCJpYXQiOjE1NzY1ODg0NDMsImV4cCI6MTU3NjU4OTM0M30.LqKOli4Xw7wgeHvKt93n8z8-lsHZEKsMpmSc6DCJMko

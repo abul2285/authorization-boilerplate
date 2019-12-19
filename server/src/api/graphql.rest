@@ -1,0 +1,17 @@
+POST http://localhost:4000/graphql HTTP/1.1
+Content-Type: application/json
+X-Request-Type: GraphQL
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZGY4ZjQyZGJlMjM3NzE3MTg5YjQzNzUiLCJ0b2tlblZlcnNpb24iOjAsImlhdCI6MTU3NjcxMTQ5MSwiZXhwIjoxNTc3MzE2MjkxfQ.mnpce9vfK7MzoQDNc-9L0UN4l2ERtNgRJdyIHVk66OI
+
+# mutation{
+#   login(email:"rest@gmail.com",password:"1234"){
+#     accessToken
+#   }
+# }
+
+
+{
+  me{
+    email
+  }
+}
