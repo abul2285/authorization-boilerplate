@@ -2,11 +2,11 @@ import "reflect-metadata";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { UserResolver } from "./resolvers/UserResolver";
+// import { UserResolver } from "./resolvers/UserResolver";
 import { createConnection } from "typeorm";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
-import cors from 'cors'
+import cors from "cors";
 
 import { User } from "./entity/User";
 import { createAccessToken, createRefreshToken } from "./utils/auth";
@@ -14,10 +14,12 @@ import { oid } from "./utils/helpers";
 
 (async () => {
   const app = express();
-  app.use(cors({
-    origin:'http://localhost:3000',
-    credentials:true
-  }))
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true
+    })
+  );
   app.use(cookieParser());
   app.get("/", (_, res) => res.send("hello world"));
   app.post("/refresh_token", async (req, res) => {
@@ -46,9 +48,18 @@ import { oid } from "./utils/helpers";
   });
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver]
+      // resolvers: [UserResolver]
+      resolvers: [`${__dirname}/resolvers/*.ts`]
     }),
-    context: ({ req, res }) => ({ req, res })
+    context: ({ req, res }) => ({ req, res }),
+    engine: {
+      // The Graph Manager API key
+      apiKey: "service:jwt-authentication:vrWk0YQWjhzTFP-zEORQQA",
+      // A tag for this specific environment (e.g. `development` or `production`).
+      // For more information on schema tags/variants, see
+      // https://www.apollographql.com/docs/platform/schema-registry/#associating-metrics-with-a-variant
+      schemaTag: "current"
+    }
   });
   await createConnection();
   apolloServer.applyMiddleware({ app, cors: false });
